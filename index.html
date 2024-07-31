@@ -6,55 +6,194 @@
     <title>Mon CV</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            background: linear-gradient(to right, #f4f4f9, #e2e2e2);
         }
+
         .container {
-            max-width: 800px;
-            margin: auto;
+            max-width: 900px;
+            margin: 50px auto;
             background: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 10px;
+            animation: fadeIn 1s ease-in-out;
         }
-        h1, h2, h3 {
-            margin-top: 0;
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        .contact-info, .education, .experience, .skills {
+
+        .header {
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
         }
+
+        .header img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 3px solid #007bff;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            color: #343a40;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #495057;
+            margin-top: 40px;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 24px;
+            color: #6c757d;
+            margin-top: 20px;
+        }
+
+        .contact-info, .education, .experience, .skills {
+            margin-bottom: 30px;
+        }
+
         .contact-info p, .education p, .experience p, .skills p {
-            margin: 5px 0;
+            margin: 8px 0;
+            font-size: 18px;
+            color: #495057;
+        }
+
+        .skills ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .skills li {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .skills li:hover {
+            background: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Nom Prénom</h1>
-        <div class="contact-info">
-            <h2>Informations de contact</h2>
-            <p>Email: exemple@domaine.com</p>
-            <p>Téléphone: 0123456789</p>
-            <p>Adresse: 123 Rue Exemple, Ville, Pays</p>
-        </div>
-        <div class="education">
-            <h2>Éducation</h2>
-            <h3>Université Exemple</h3>
-            <p>Licence en Informatique, 2015 - 2018</p>
-        </div>
-        <div class="experience">
-            <h2>Expérience professionnelle</h2>
-            <h3>Développeur Web chez Société Exemple</h3>
-            <p>Janvier 2019 - Présent</p>
-            <p>Responsable du développement et de la maintenance de sites web.</p>
-        </div>
-        <div class="skills">
-            <h2>Compétences</h2>
-            <p>HTML, CSS, JavaScript</p>
-            <p>React, Node.js</p>
-            <p>Git, Docker</p>
-        </div>
-    </div>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        const cvData = {
+            name: "Melissa LATEB",
+            contact: {
+                email: "latebmelissa@gmail.com",
+                phone: "06 28 72 24 12",
+                address: "Ile-de-france",
+            },
+            education: [
+                {
+                    institution: "Sorbonne Université",
+                    degree: "Master 2 - STL",
+                    years: "2024 - 2025"
+                },
+                {
+                    institution: "CFA INSTA",
+                    degree: "Master 1 - Analyste DEVOPS",
+                    years: "2023 - 2024"
+                },
+                {
+                    institution: "Université Paris-Est Créteil",
+                    degree: "Licence en Informatique",
+                    years: "2019 - 2023"
+                },
+                {
+                    institution: "Université UMMTO",
+                    degree: "Licence 1 - Sciences et technologies",
+                    years: "2018 - 2019"
+                },
+                {
+                    institution: "Lycée El Khansa",
+                    degree: "Baccalauréat série mathématique",
+                    years: "2017 - 2018"
+                }
+                
+            ],
+            experience: [
+                {
+                    company: "NUXLY",
+                    role: "Alternance - Développement infotmatique",
+                    years: "Septembre 2023 - Présent",
+                    description: ""
+                }
+            ],
+            skills: [
+                "HTML", "CSS", "JavaScript", "React", "Node.js", "Git", "Docker"
+            ],
+            image: "image.jpg" 
+        };
+
+        const App = () => {
+            return (
+                <div className="container">
+                    <div className="header">
+                        <img src={cvData.image} alt="Profile" />
+                        <h1>{cvData.name}</h1>
+                    </div>
+                    <div className="contact-info">
+                        <h2>Informations de contact</h2>
+                        <p>Email: {cvData.contact.email}</p>
+                        <p>Téléphone: {cvData.contact.phone}</p>
+                        <p>Adresse: {cvData.contact.address}</p>
+                    </div>
+                    <div className="education">
+                        <h2>Éducation</h2>
+                        {cvData.education.map((edu, index) => (
+                            <div key={index}>
+                                <h3>{edu.degree}, {edu.years}</h3>
+                                <p>{edu.institution}</p> 
+                            </div>
+                        ))}
+                    </div>
+                    <div className="experience">
+                        <h2>Expérience professionnelle</h2>
+                        {cvData.experience.map((exp, index) => (
+                            <div key={index}>
+                                <h3>{exp.company}</h3>
+                                <p>{exp.role}, {exp.years}</p>
+                                <p>{exp.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="skills">
+                        <h2>Compétences</h2>
+                        <ul>
+                            {cvData.skills.map((skill, index) => (
+                                <li key={index}>{skill}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
 </body>
 </html>
